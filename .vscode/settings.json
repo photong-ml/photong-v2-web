@@ -9,11 +9,23 @@
         "editor.defaultFormatter": "foxundermoon.shell-format"
     },
     "[svelte]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "svelte.svelte-vscode"
     },
-    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.codeActionsOnSave": [
+        "source.fixAll.eslint"
+    ],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "eslint.probe": ["javascript", "typescript", "svelte", "json"],
-    "eslint.validate": ["javascript", "typescript", "svelte", "json"]
+    "eslint.probe": [
+        "javascript",
+        "typescript",
+        "svelte",
+        "json"
+    ],
+    "eslint.validate": [
+        "javascript",
+        "typescript",
+        "svelte",
+        "json"
+    ]
 }

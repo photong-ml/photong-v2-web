@@ -11,7 +11,7 @@
             <svelte:fragment slot="lead">
                 <a href="/" class="text-base md:text-3xl font-bold">Photong</a>
             </svelte:fragment>
-            <nav class="hidden lg:flex space-x-1">
+            <nav class="flex space-x-1">
                 <a class="btn btn-sm" href="/">Home</a>
                 <a class="btn btn-sm" href="/about">About</a>
             </nav>

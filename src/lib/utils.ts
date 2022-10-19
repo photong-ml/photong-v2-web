@@ -34,9 +34,13 @@ const getPredictionBlob = async (img_data: WebSafeBase64) => {
 
 export const getPredictionAudioURL = async (file: File) => {
     const img = new Image();
-    img.src = URL.createObjectURL(file);
+    const imgURL = URL.createObjectURL(file);
+    img.src = imgURL;
     await new Promise((res) => (img.onload = res));
-    const img_data = getDataFromImage(img);
-    const prediction = await getPredictionBlob(img_data);
-    return URL.createObjectURL(prediction);
+    const imgData = getDataFromImage(img);
+    const prediction = await getPredictionBlob(imgData);
+    return {
+        image: imgURL,
+        audio: URL.createObjectURL(prediction),
+    };
 };

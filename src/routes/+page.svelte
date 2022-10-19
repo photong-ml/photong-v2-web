@@ -43,6 +43,7 @@
 </script>
 
 {#if !fileUploaded}
+    <!-- Don't fade if it's already initialised -->
     {#await initialised && sleep(fadeDuration) then}
         <div in:fade={{ duration: initialised ? fadeDuration : 0 }} out:fade={{ duration: fadeDuration }} class="h-full">
             <FileDropzone bind:files on:change={onDrop} class="h-full photong-img" height="h-full" {notes} accept="image/*" />
@@ -56,11 +57,12 @@
                     <div class="h-12 w-12"><ProgressRadial stroke={60} /></div>
                     <div class="">Please wait while a melody is being generated.</div>
                 </div>
-            {:then src}
+            {:then { image, audio }}
                 {#await toggleLock(false) && sleep(fadeDuration) then}
                     <div transition:fade={{ duration: fadeDuration }} class="flex flex-col items-center justify-center space-y-4 text-center h-full">
                         <h2 class="text-primary">Here is your melody!</h2>
-                        <audio controls {src} />
+                        <img src={image} class="h-96" alt="Uploaded file." />
+                        <audio controls src={audio} />
                         <button class="btn bg-primary-400" on:click={() => (fileUploaded = false)}>Try another</button>
                     </div>
                 {/await}
