@@ -43,22 +43,25 @@
 </script>
 
 {#if !fileUploaded}
+    <!-- Initial screen -->
     <!-- Don't fade if it's already initialised -->
     {#await initialised && sleep(fadeDuration) then}
         <div in:fade={{ duration: initialised ? fadeDuration : 0 }} out:fade={{ duration: fadeDuration }} class="h-full">
-            <FileDropzone bind:files on:change={onDrop} class="h-full photong-img" height="h-full" {notes} accept="image/*" />
+            <FileDropzone bind:files on:change={onDrop} class="h-full photong-img" height="h-full" {notes} accept="image/*" required />
         </div>
     {/await}
 {:else}
     {#key retry}
         {#await toggleLock(true) && sleep(fadeDuration) then}
             {#await getPredictionAudioURL(file)}
+                <!-- Loading screen -->
                 <div transition:fade={{ duration: fadeDuration }} class="flex flex-col items-center justify-center space-y-4 text-center h-full">
                     <div class="h-12 w-12"><ProgressRadial stroke={60} /></div>
                     <div class="">Please wait while a melody is being generated.</div>
                 </div>
             {:then { image, audio }}
                 {#await toggleLock(false) && sleep(fadeDuration) then}
+                    <!-- Result screen -->
                     <div transition:fade={{ duration: fadeDuration }} class="flex flex-col items-center justify-center space-y-4 text-center h-full">
                         <h2 class="text-primary">Here is your melody!</h2>
                         <img src={image} class="h-96" alt="Uploaded file." />
@@ -68,6 +71,7 @@
                 {/await}
             {:catch e}
                 {#await toggleLock(false) && sleep(fadeDuration) then}
+                    <!-- Error screen -->
                     <div transition:fade={{ duration: fadeDuration }} class="flex flex-col items-center justify-center space-y-4 text-center h-full">
                         <h2 class="text-warning-500">Error: {e.message}</h2>
                         <div class="flex space-x-4">

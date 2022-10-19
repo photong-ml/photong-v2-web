@@ -19,17 +19,19 @@ const getDataFromImage = (img: HTMLImageElement): WebSafeBase64 => {
 };
 
 const getPredictionBlob = async (img_data: WebSafeBase64) => {
-    return await (
-        await fetch(new URL("/predict", API_URL), {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                img_data,
-            }),
-        })
-    ).blob();
+    const res = await fetch(new URL("/predict", API_URL), {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            img_data,
+        }),
+    });
+    if (!res.ok) {
+        throw new Error(res.statusText);
+    }
+    return await res.blob();
 };
 
 export const getPredictionAudioURL = async (file: File) => {
