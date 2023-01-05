@@ -2,6 +2,8 @@ import { API_URL, IMG_SIZE } from "./config";
 
 export type WebSafeBase64 = string;
 
+export const sleep = async (ms: number) => await new Promise((resolve) => setTimeout(resolve, ms));
+
 const getDataFromImage = (img: HTMLImageElement): WebSafeBase64 => {
     // Draw on a IMG_SIZE x IMG_SIZE canvas
     const canvas = document.createElement("canvas");

@@ -1,7 +1,9 @@
-const config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
     darkMode: "class",
-    content: ["./src/**/*.{html,js,svelte,ts}", "./node_modules/@brainandbones/skeleton/**/*.{html,js,svelte,ts}"],
-    plugins: [require("@tailwindcss/forms"), require("@brainandbones/skeleton/tailwind/theme.cjs")],
+    content: ["./src/**/*.{html,js,svelte,ts}", require("path").join(require.resolve("@skeletonlabs/skeleton"), "../**/*.{html,js,svelte,ts}")],
+    theme: {
+        extend: {},
+    },
+    plugins: [require("@tailwindcss/forms"), require("@skeletonlabs/skeleton/tailwind/theme.cjs")],
 };
-
-module.exports = config;
